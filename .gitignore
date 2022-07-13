@@ -105,3 +105,9 @@ dist
 
 # package-lock file
 package-lock.json
+
+# build output
+out/
+
+#VS Code config
+.vscode/
