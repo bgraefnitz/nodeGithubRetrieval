@@ -19,12 +19,19 @@ Install packages from npm
 npm i
 ```
 
-Build typescript solution
+Build ts-node to transpile and run
 ``` 
-tsc
+npm run start
 ```
 
-Run the app
+Depending upon development preferences, it may be helpful to run with nodemon (so saved changes cause auto-restart)
 ``` 
-node out/app.js
+npm run dev
+```
+
+Both of the above npm commands use npx so that ts-node and nodemon don't have to be installed globally. Alternatively, if you have ts-node and nodemon installed globally or any location included in PATH env variable, you can run like this if you'd prefer
+``` 
+ts-node src/app.ts
+and
+nodemon src/app.ts
 ```

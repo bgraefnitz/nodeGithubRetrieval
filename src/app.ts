@@ -5,6 +5,9 @@ const dotenv = require("dotenv").config();
 const orgName = 'ramda';
 const pullRequestStatus = 'all';
 const accessToken = process.env.ACCESS_TOKEN;
+
+console.log(`Starting pull request retrieval from org ${orgName} with ${pullRequestStatus} status`);
+
 if (typeof accessToken === 'string') {
   const githubService = new GithubService(orgName, accessToken);
 
@@ -18,5 +21,5 @@ if (typeof accessToken === 'string') {
   });
 }
 else {
-  throw console.error('no token');
+  throw new Error("ACCESS_TOKEN is not defined in .env");
 }

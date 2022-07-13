@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { Repo } from '../models/repo';
 import { PullRequest } from '../models/pull-request';
+import { ReadableByteStreamController } from 'stream/web';
 const githubLinkHeaderParser = require("parse-link-header");
 
 //get all
@@ -14,7 +15,7 @@ export class GithubService {
 
   public async getAllReposWithPullRequests(pullRequestStatus: string = 'open'): Promise<Repo[]> {
     const repos = await this.getReposForOrg();
-    for (var repo of repos) {
+    for (let repo of repos) {
       repo.pull_requests = await this.getPullRequestsForRepo(repo.name, pullRequestStatus);
     }
     return repos;
@@ -29,12 +30,19 @@ export class GithubService {
   }
 
   private async getAllPagesFromApi (apiPath: string, accumulatedData: any = []): Promise<any[]> {
-    const response = await this.githubEndpoint.get(apiPath);
+    const response = await this.githubEndpoint.get(apiPath)
+      .catch ((error: AxiosError) => {
+        if(error.response!.status === 401) {
+          throw new Error('Unauthorized requests with provided token for this repo');
+        } else {
+          throw new Error(`Error status code of ${error.response!.status}: ${error.response!.statusText}. ${error.message}`);
+        }
+      });
     accumulatedData = response.data;
 
     if (response.headers.link)
     {
-      var githubLinks = githubLinkHeaderParser(response.headers.link);
+      let githubLinks = githubLinkHeaderParser(response.headers.link);
       if (githubLinks?.next) {
         const pageData = await this.getAllPagesFromApi(githubLinks.next.url, accumulatedData);
         accumulatedData.push(...pageData);
