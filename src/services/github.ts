@@ -17,7 +17,6 @@ export class GithubService {
     for (var repo of repos) {
       repo.pull_requests = await this.getPullRequestsForRepo(repo.name, pullRequestStatus);
     }
-    //const allPullRequets = repos.flatMap(function(repo) { return repo.pull_requests});
     return repos;
   }
 
