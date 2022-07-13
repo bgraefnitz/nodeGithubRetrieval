@@ -1,9 +1,13 @@
-import axios, { AxiosResponse } from 'axios';
-import { PullRequest } from './models/pull-request';
+import { GithubService } from './services/github';
 
-//get all
-const pullRequestsForRepo = axios.get(`https://api.github.com/repos/ramda/ramda/pulls`)
-  .then(function(response)
-  {
-    console.log(response);
-  });
+//init service
+const githubService = new GithubService('ramda','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');
+
+//get all PRs for repo
+githubService.getAllReposWithPullRequests('all')
+.then(function(response)
+{
+  const repos = response;
+  const allPullRequets = repos.flatMap(function(repo) { return repo.pull_requests});
+  console.log(`${allPullRequets.length} pull requests in ${repos.length} repos`);
+});

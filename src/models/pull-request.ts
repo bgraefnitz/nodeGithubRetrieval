@@ -1,9 +1,9 @@
 export interface PullRequest {
-  url: String;
-  id: Number;
-  node_id: String;
-  title: String;
-  body: String;
+  url: string;
+  id: number;
+  node_id: string;
+  title: string;
+  body: string;
   created_at: Date;
   updated_at: Date;
   closed_at: Date;
