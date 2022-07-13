@@ -1,0 +1,27 @@
+{
+  "name": "nodegithubretrieval",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "nodemon src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgraefnitz/nodeGithubRetrieval.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bgraefnitz/nodeGithubRetrieval/issues"
+  },
+  "homepage": "https://github.com/bgraefnitz/nodeGithubRetrieval#readme",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^0.27.2",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}
